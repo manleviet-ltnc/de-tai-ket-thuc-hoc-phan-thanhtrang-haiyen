@@ -27,31 +27,12 @@ namespace Calendar
         public Form1()
         {
             InitializeComponent();
-            Form1_Load();
+           
         }
 
         public void Form1_Load()
         {
-            Matrix = new List<List<Button>>();
-
-            Button oldBtn = new Button() { Width = 0, Height = 0, Location = new Point(-Cons.margin, 0) };
-            for (int i = 0; i < Cons.Row; i++)
-            {
-                Matrix.Add(new List<Button>());
-                for (int j = 0; j < Cons.DayOfWeek; j++)
-                {
-                    Button btn = new Button() { Width = Cons.dateButtonWidth, Height = Cons.dateButtonHeight };
-                    btn.Location = new Point(oldBtn.Location.X+ oldBtn.Width+ Cons.margin,oldBtn.Location.Y ) ;
-
-                    pnMatrix.Controls.Add(btn);
-                    Matrix[i].Add(btn);
-
-                    oldBtn = btn;
-                }
-                oldBtn = new Button() { Width = 0, Height = 0, Location = new Point(-Cons.margin, oldBtn.Location.Y + Cons.dateButtonHeight) };
-
-            }
-            SetDefaultDate();
+            
         }
 
         int DayOfMonth(DateTime date)
@@ -98,15 +79,16 @@ namespace Calendar
 
         void CleartMatrix()
         {
-            for (int i=0; i <= Matrix.Count; i++)
+            for (int i = 0; i < Matrix.Count; i++)
             {
-                for(int m=0; m< Matrix[i].Count; m++)
+                for (int m = 0; m < Matrix[i].Count; m++)
                 {
                     Button btn = Matrix[i][m];
                     btn.Text = "";
                 }
             }
         }
+
 
         void SetDefaultDate()
         {
@@ -130,6 +112,30 @@ namespace Calendar
 
         private void btnToday_Click(object sender, EventArgs e)
         {
+            SetDefaultDate();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Matrix = new List<List<Button>>();
+
+            Button oldBtn = new Button() { Width = 0, Height = 0, Location = new Point(-Cons.margin, 0) };
+            for (int i = 0; i < Cons.Row; i++)
+            {
+                Matrix.Add(new List<Button>());
+                for (int j = 0; j < Cons.DayOfWeek; j++)
+                {
+                    Button btn = new Button() { Width = Cons.dateButtonWidth, Height = Cons.dateButtonHeight };
+                    btn.Location = new Point(oldBtn.Location.X + oldBtn.Width + Cons.margin, oldBtn.Location.Y);
+
+                    pnMatrix.Controls.Add(btn);
+                    Matrix[i].Add(btn);
+
+                    oldBtn = btn;
+                }
+                oldBtn = new Button() { Width = 0, Height = 0, Location = new Point(-Cons.margin, oldBtn.Location.Y + Cons.dateButtonHeight) };
+
+            }
             SetDefaultDate();
         }
     }
