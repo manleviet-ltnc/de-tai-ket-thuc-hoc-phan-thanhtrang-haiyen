@@ -70,13 +70,24 @@ namespace Calendar
                 Button btn = Matrix[line][column];
                 btn.Text = i.ToString();
 
+                if (isEqualDate(useDate, DateTime.Now))
+                {
+                    btn.BackColor = Color.Yellow;
+                }
+                if (isEqualDate(useDate, date))
+                {
+                    btn.BackColor = Color.GreenYellow;
+                }
                 if (column >= 6)
                     line++;
-                useDate = useDate.AddDays(1);
-
+                useDate = useDate.AddDays(1); 
             }
         }
-
+        
+        bool isEqualDate(DateTime date1, DateTime date2)
+        {
+            return date1.Year == date2.Year && date1.Month == date2.Month && date1.Day == date2.Day;
+        }
         void CleartMatrix()
         {
             for (int i = 0; i < Matrix.Count; i++)
@@ -85,6 +96,7 @@ namespace Calendar
                 {
                     Button btn = Matrix[i][m];
                     btn.Text = "";
+                    btn.BackColor = Color.WhiteSmoke;
                 }
             }
         }
@@ -118,10 +130,11 @@ namespace Calendar
         private void Form1_Load(object sender, EventArgs e)
         {
             Matrix = new List<List<Button>>();
-
+            //Tạo button cũ để xác định button trước đó là cái nào
             Button oldBtn = new Button() { Width = 0, Height = 0, Location = new Point(-Cons.margin, 0) };
             for (int i = 0; i < Cons.Row; i++)
             {
+                //Tạo matrix mới
                 Matrix.Add(new List<Button>());
                 for (int j = 0; j < Cons.DayOfWeek; j++)
                 {
